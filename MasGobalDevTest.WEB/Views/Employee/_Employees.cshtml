@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MasGobalDevTest.WEB.ViewModels.EmployeeViewModel> 
+@if(Model.Count()==0)
+{
+    <tr>
+        <td colspan="8" class="text-center">
+            No match found
+        </td>
+    </tr>
+}
+else
+{
+    foreach(var employee in Model)
+    {
+    <tr class="text-center">
+        <td>@employee.Id</td>
+        <td>@employee.Name</td>
+        <td>@employee.RoleName</td>
+        <td>@employee.RoleDescription</td>
+        <td>@string.Format("{0:c}", @employee.HourlySalary)</td>
+        <td>@string.Format("{0:c}", employee.MonthlySalary)</td>
+
+        @if (employee.ContractTypeName == "HourlySalaryEmployee")
+        {
+            <td>Hourly Salary Contract</td>
+        }
+        else if (employee.ContractTypeName == "MonthlySalaryEmployee")
+        {
+            <td>Monthly Salary Contract</td>
+        }
+        <td>@string.Format("{0:c}", employee.AnnualSalary)</td>
+    </tr>
+    }
+}

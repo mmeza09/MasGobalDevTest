@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Employees";
+}
+
+<h2 class="mt-3">Employess</h2>
+<div>
+    @using (Html.BeginForm("Index", "Employee", FormMethod.Get, new { @class = "form-inline my-2" }))
+    {
+        <div class="form-group">
+            <label>Search: </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBox("SearchString",null,new {
+                id = "employee-id",
+                @placeholder = "Employee ID",
+                @class = "form-control mx-sm-3"
+            } )
+        </div>
+        <button type="submit" class="btn btn-outline-success" id="btn-get-employees">Get Employees</button>
+    }
+
+</div>
+<div class="table-responsive">
+    <table class="table table-sm table-bordered d-none mt-3" id="employees-table">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th scope="col">ID</th>
+                <th scope="col">NAME</th>
+                <th scope="col">ROLE</th>
+                <th scope="col">ROL DESCRIPTION</th>
+                <th scope="col">HOURLY SALARY</th>
+                <th scope="col">MONTHLY SALARY</th>
+                <th scope="col">CONTRACT TYPE</th>
+                <th scope="col">ANNUAL SALARY</th>
+            </tr>
+        </thead>
+        <tbody id="employees-table-body"></tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#employee-id').keypress(function (e) {
+                if (e.which !== 8 && e.which !== 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $('#btn-get-employees').click(function (e) {
+                e.preventDefault();
+                var id = isNaN(parseInt($('#employee-id').val())) ? 0 : parseInt($('#employee-id').val());
+                var url = id > 0 ? '/Employee/GetEmployees/' + id : '/Employee/GetEmployees';
+                $.get(url).done(function (data) {
+                    $('#employees-table-body').html(data);
+                    $('#employees-table').removeClass('d-none');
+                });
+
+            });
+        });
+    </script>
+}
+
