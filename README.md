@@ -6,7 +6,7 @@ Senior .NET Developer Hands On Test
 2. Please on visual studio setup to run multiple project. Select MasGlobalDevTest.API and MasGlobalDevTest.Web
 
 ### Options
-Whem debugging you can check API endpoints with swagger on http://localhost:51036/swagger
+When debugging you can check API endpoints with swagger on http://localhost:51036/swagger
 
 
 
